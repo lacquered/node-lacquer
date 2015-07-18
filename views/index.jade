@@ -44,3 +44,29 @@ block content
 block javascript
     script(type='text/javascript').
 
+        $("#btnWrite").click(function () {
+
+            $("#formWrite")
+            alert("Handler for .click() called.");
+        });
+
+        function submitForm(form, data) {
+            var postData = form.serializeArray(),
+                    formURL = form.attr("action");
+            postData.push(data);
+            console.log(postData);
+            jQuery.ajax({
+                url: formURL,
+                type: 'POST',
+                dataType: "json",
+                data: postData,
+                success: function (data) {
+                    jQuery('#priceTotal').html(data);
+                },
+                error: function () {
+                    jQuery('#priceTotal').html('error');
+                }
+            });
+        }
+
+
