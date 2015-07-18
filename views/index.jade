@@ -1,0 +1,44 @@
+extends layout
+
+block content
+
+    #reservation.section
+        hr
+        .container
+            h2.section-title 온라인 예약
+            .row
+                .col-md-8
+                    p
+                        | 출발 항구는
+                        strong 통영 유람선 터미널
+                        |  입니다.
+                        br
+                        br
+                    include ./includes/registration-form.jade
+                .col-md-3.col-md-offset-1
+                    .contact-info.text-center
+                        br
+                        br
+                        br
+                        h5
+                            i.fa.fa-map-marker.text-muted
+                            |  통영 유람선 터미널
+                        p.text-muted
+                            | 경상남도 통영시
+                            br
+                            | 도남로 269-38
+                            br
+                            | (통영시 도남동 634번지)
+                        br
+                        h5
+                            i.fa.fa-phone.text-muted
+                            | 전화문의 및 예약
+                        p.lead
+                            center.lead 1661-4428
+                        br
+                        // Button trigger modal
+                        button.btn.btn-primary(data-toggle='modal', data-target='#myModal')
+                            | Launch demo modal
+
+
+block javascript
