@@ -40,10 +40,23 @@ html
                                 label.col-sm-2.control-label(for='resno') 예약 번호
                                 .col-sm-10
                                     input#resno.form-control(type='text', name='resno', placeholder='',required)
+                        .alert.alert-warning(role='alert', style='display:none')
+                            .container
+                                span.alertMessage
+                                    strong 예약번호가 존재하지 앖습니다.
+                                    |  다시 시도해주세요.
+                                button.alert-close.close(type='button')
+                                    span &times;
                     .modal-footer
                         button.btn.btn-default(type='button', data-dismiss='modal') 닫기
                         button#btncheck.btn.btn-primary(type='button') 예약 내역 확인
-
     include ./includes/javascript.jade
-
+    script(type='text/javascript').
+        $(".alert-close").click(function () {
+            $('.alert-success').hide();
+            $('.alert-warning').hide();
+        });
+        $(document).on("click", ".navbar-nav li a", function () {
+            $("#bodyClick").click();
+        });
     block javascript
