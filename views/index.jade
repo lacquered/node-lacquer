@@ -9,8 +9,8 @@ block content
             .row
                 .col-md-8
                     p
-                        | 출발 항구는
-                        strong 통영 유람선 터미널
+                        | 출발 항구는 &nbsp;
+                        strong "통영 유람선 터미널"
                         |  입니다.
                         br
                         br
@@ -54,25 +54,34 @@ block javascript
 
             var formURL = $(this).attr("action");
 
+            console.log(dataJSON);
+
             $.ajax({
                 url: formURL,
                 type: "POST",
                 data: dataJSON,
-                dataType: 'json',
-                success: function (data, textStatus, jqXHR) {
-                    $('.alert-success .container').html('<b>예약이 완료되었습니다. </b> 예약 내역을 조회/수정/삭제하실 수 있습니다. (전화 문의 1661-4428)');
-                    $('.alert-success').show( "slow", function() {});
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    //if fails
-                    console.error(textStatus);
-                }
+                dataType: 'json'
+            }).done(function (data) {
+                $('.alert-success .alertMessage').html('<b>예약이 완료되었습니다. </b> 예약 내역을 조회/수정/삭제하실 수 있습니다. (전화 문의 1661-4428)');
+                $('.alert-success').show();
+            }).fail(function () {
+                alert("error");
             });
 
             e.preventDefault(); //STOP default action
-            e.unbind(); //unbind. to stop multiple form submit.
+            // e.unbind(); //unbind. to stop multiple form submit.
         });
 
         $("#btnWrite").click(function () {
             $("#formWrite").submit();
+        });
+
+        $(".alert-close").click(function () {
+            $('.alert-success').hide();
+        });
+
+        $(".navbar-nav li a").click(function () {
+            alert("ABCD");
+
+            $("#bodyClick").click();
         });

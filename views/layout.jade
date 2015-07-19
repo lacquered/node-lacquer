@@ -13,12 +13,12 @@ html
 
             include ./includes/footer.jade
 
-        #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+        #reservationModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='reservationModalLabel', aria-hidden='true')
             .modal-dialog
                 .modal-content
                     .modal-header
                         button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-                        h4#myModalLabel.modal-title 예약 변경 및 삭제
+                        h4#reservationModalLabel.modal-title 예약 변경 및 삭제
                     .modal-body
                         p 예약 내역을 수정하거나 삭제할 수 있습니다.
                         include ./includes/registration_modify.jade
@@ -26,6 +26,23 @@ html
                         button.btn.btn-default(type='button', data-dismiss='modal') 닫기
                         button#btnModify.btn.btn-primary(type='button') 예약 수정
                         button#btnDelete.btn.btn-danger(type='button') 예약 삭제
+
+        #resnoModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='resnoModalLabel', aria-hidden='true')
+            .modal-dialog
+                .modal-content
+                    .modal-header
+                        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                        h4#resnoModalLabel.modal-title 예약번호 확인
+                    .modal-body
+                        p 예약 내역을 수정하거나 삭제할 수 있습니다.
+                        form#formCheck.form-horizontal(role='form', method='post', action='/reservation')
+                            .form-group
+                                label.col-sm-2.control-label(for='resno') 예약 번호
+                                .col-sm-10
+                                    input#resno.form-control(type='text', name='resno', placeholder='',required)
+                    .modal-footer
+                        button.btn.btn-default(type='button', data-dismiss='modal') 닫기
+                        button#btncheck.btn.btn-primary(type='button') 예약 내역 확인
 
     include ./includes/javascript.jade
 

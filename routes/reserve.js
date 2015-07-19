@@ -6,9 +6,10 @@ router.post('/write', function (req, res, next) {
 
   mongoPersister.createReservation(req.body, function (err, result) {
     console.log("SUCCESS !!!! : " + result);
+    res.json({ user: 'tobi' });
   })
 
-  res.send('respond with a resource');
+
 });
 
 module.exports = router;
