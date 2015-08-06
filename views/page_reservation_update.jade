@@ -20,10 +20,8 @@ block content
                             h5.col-xs-3.text-center(for='time') 출발지
                             .col-xs-9
                                 select#pSource.mobileSelect(data-title='출발지를 선택해주세요.')
-                                    option(value='통영') 통영
-                                    option(value='가배') 가배
-                                    option(value='저구') 저구
-                                    option(value='대포') 대포
+                                    for item in listSource
+                                        option(value='#{item}' selected=(pSource == item) ? true : false) #{item}
                         .form-group
                             h5.col-xs-3.text-center(for='date') 일 자
                             .col-xs-9
@@ -33,17 +31,17 @@ block content
                             h5.col-xs-3.text-center(for='time') 시 간
                             .col-xs-9
                                 select#pTime.mobileSelect(data-title='출발 시간을 선택해주세요.')
-                                    option(value='09:30') 09:30
-                                    option(value='15:30') 15:30
+                                    for item in listTime
+                                        option(value='#{item}' selected=(pTime == item) ? true : false) #{item}
                         .form-group
                             h5.col-xs-3.text-center(for='time') 전화번호
                             .col-xs-9
                                 .col-xs-4(style='padding-right: 4px; padding-left: 0px;')
-                                    input#pTel1.form-control.textBorder(type='text', pattern='\d*', maxlength='3', style='ime-mode:disabled;')
+                                    input#pTel1.form-control.textBorder(type='text', pattern='\d*', maxlength='3', style='ime-mode:disabled;', value='#{pTel1}')
                                 .col-xs-4(style='padding-right: 2px; padding-left: 2px;')
-                                    input#pTel2.form-control.textBorder(type='number', pattern='[0-9]{10}', step='1', maxlength='4')
+                                    input#pTel2.form-control.textBorder(type='number', pattern='[0-9]{10}', step='1', maxlength='4', value='#{pTel2}')
                                 .col-xs-4(style='padding-right: 0px; padding-left: 4px;')
-                                    input#pTel3.form-control.textBorder(type='number', maxlength='4', style='ime-mode:disabled;')
+                                    input#pTel3.form-control.textBorder(type='number', maxlength='4', style='ime-mode:disabled;', value='#{pTel3}')
     .container
         .text-center
             button#btnSearch.btn.btn-primary.btn-lg(type='button')
@@ -156,3 +154,7 @@ block content
             }));
         }
         $('.mobileSelect').mobileSelect();
+
+    if pDate
+        script.
+            pDate.set('select', '#{pDate}', {pDate: 'yyyymmdd'});

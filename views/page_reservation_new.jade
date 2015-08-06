@@ -20,10 +20,8 @@ block content
                             h5.col-xs-3.text-center(for='time') 출발지
                             .col-xs-9
                                 select#pSource.mobileSelect(data-title='출발지를 선택해주세요.')
-                                    option(value='통영') 통영
-                                    option(value='가배') 가배
-                                    option(value='저구') 저구
-                                    option(value='대포') 대포
+                                    for item in listSource
+                                        option(value='#{item}' selected=(pSource == item)?true:false) #{item}
                         .form-group
                             h5.col-xs-3.text-center(for='date') 일 자
                             .col-xs-9
@@ -158,11 +156,9 @@ block content
                 url: '/reservation/new', type: "POST", data: _data, dataType: 'json'
             }).done(function (result) {
 
-                alert(result.status);
                 if(result.status == 'EXISTED') {
-                    alert('이미 예약 정보가 존재합니다.');
                     if (confirm('이미 예약 정보가 존재합니다.\n 수정하시겠습니까 ?')) {
-                        window.location.href = "/reservation/update";
+                        window.location.href = "/reservation/update?d="+encodeURIComponent(JSON.stringify(_data));
                     }else {
                         // do nothing...
                     }
