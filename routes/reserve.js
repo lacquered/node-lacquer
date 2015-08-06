@@ -2,9 +2,30 @@ var express = require('express');
 var router = express.Router();
 var mongoPersister = require('../lib/persister/mongoPersister');
 
-router.post('/write', function (req, res, next) {
+router.get('/new', function (req, res, next) {
+  res.render('page_reservation_new');
+});
+
+router.get('/update', function (req, res, next) {
+  res.render('page_reservation_update');
+});
+
+router.post('/new', function (req, res, next) {
+
   mongoPersister.createReservation(req.body, function (err, result) {
-    res.json(result);
+    console.log(err, result);
+    if(err == 'EXISTED') {
+      res.json({
+        status: err,
+        result: result
+      })
+    }else{
+      res.json({
+        status: 'OK',
+        result: result
+      })
+    }
+
   })
 });
 

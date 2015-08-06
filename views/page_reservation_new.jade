@@ -1,0 +1,180 @@
+extends layout_reservation
+
+block content
+    .section
+        .container.container-border
+            nav.navbar.navbar-ct-azure.navbar-fixed-top(role='navigation')
+                .container.text-center
+                    .navbar-header2
+                        a.navbar-brand(href='/')
+                            i.fa.fa-chevron-left
+                        .titleBarTxt.text-center 패키지 예약 하기
+            br
+            br
+            br
+            br
+            #resConfirm.row
+                .col-lg-12
+                    .form-horizontal
+                        .form-group
+                            h5.col-xs-3.text-center(for='time') 출발지
+                            .col-xs-9
+                                select#pSource.mobileSelect(data-title='출발지를 선택해주세요.')
+                                    option(value='통영') 통영
+                                    option(value='가배') 가배
+                                    option(value='저구') 저구
+                                    option(value='대포') 대포
+                        .form-group
+                            h5.col-xs-3.text-center(for='date') 일 자
+                            .col-xs-9
+                                div
+                                    input#pDate.form-control.textBorder(type='text', placeholder='클릭하여 선택해 주세요.')
+                        .form-group
+                            h5.col-xs-3.text-center(for='time') 시 간
+                            .col-xs-9
+                                select#pTime.mobileSelect(data-title='출발 시간을 선택해주세요.')
+                                    option(value='09:30') 09:30
+                                    option(value='15:30') 15:30
+                        .form-group
+                            h5.col-xs-3.text-center(for='time') 전화번호
+                            .col-xs-9
+                                .col-xs-4(style='padding-right: 4px; padding-left: 0px;')
+                                    input#pTel1.form-control.textBorder(type='text', pattern='\d*', maxlength='3', style='ime-mode:disabled;')
+                                .col-xs-4(style='padding-right: 2px; padding-left: 2px;')
+                                    input#pTel2.form-control.textBorder(type='number', pattern='[0-9]{10}', step='1', maxlength='4')
+                                .col-xs-4(style='padding-right: 0px; padding-left: 4px;')
+                                    input#pTel3.form-control.textBorder(type='number', maxlength='4', style='ime-mode:disabled;')
+                        .form-group
+                            h5.col-xs-3.text-center(for='time') 예약자
+                            .col-xs-9
+                                input#pName.form-control.textBorder(type='text')
+    .section.section-gray.section-faq
+        .container
+            h3.section-title 여객선 예약
+            .row
+                .col-lg-12
+                    .col-xs-3
+                        h5.text-center 성인
+                        select#pFerryCnt1.mobileSelect.cntSelect(width='100%', data-title='성인')
+                    .col-xs-3
+                        h5.text-center 청소년
+                        select#pFerryCnt2.mobileSelect.cntSelect(width='100%', data-title='청소년 : 중고등학생')
+                    .col-xs-3
+                        h5.text-center 소인
+                        select#pFerryCnt3.mobileSelect.cntSelect(width='100%', data-title='소인 : 만3세 ~ 초등학생')
+                    .col-xs-3
+                        h5.text-center 유아
+                        select#pFerryCnt4.mobileSelect.cntSelect(width='100%', data-title='유아 : 0 ~ 만2세')
+    .section.section-gray.section-faq
+        .container
+            h3.section-title 식사 예약
+            .row
+                .col-lg-12
+                    .col-xs-6
+                        h5.text-center 메뉴 1 번
+                        select#pLunchCnt1.mobileSelect.cntSelect(width='100%', data-title='메뉴 1 번')
+                    .col-xs-6
+                        h5.text-center 메뉴 2 번
+                        select#pLunchCnt2.mobileSelect.cntSelect(width='100%', data-title='메뉴 2 번')
+    .container
+        br
+        br
+        .text-center
+            button#btnConfirm.btn.btn-primary.btn-lg(type='button')
+                | 예 약 하 기
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
+    script(src='../libs/bootstrap/js/bootstrap.min.js')
+    script(src='../libs/pickadate/js/picker.js')
+    script(src='../libs/pickadate/js/picker.date.js')
+    script(src='../libs/pickadate/js/picker.time.js')
+    script(src='../libs/pickadate/js/ko_KR.js')
+    script(src='../libs/fullscreenSelect/js/bootstrap-fullscreen-select.min.js')
+
+    script.
+
+        // 화면 설정
+        var $pDate = $('#pDate').pickadate({
+            min: true
+        }), pDate = $pDate.pickadate('picker');
+
+        $.mobileSelect.defaults = {
+            buttonSave: '선택',
+            buttonCancel: '취소',
+            theme: 'white',
+            onOpen: function () {
+            },
+            onClose: function () {
+            },
+            style: 'btn-default'
+        };
+        for (var i = 0; i < 51; i++) {
+            $('.cntSelect').append($('<option>', {
+                value: i,
+                text: i + " 명"
+            }));
+        }
+        $('.mobileSelect').mobileSelect();
+
+        // 버튼 액션
+        $('#btnConfirm').click(function () {
+
+            var _data = {
+                source: $('#pSource').val(),
+                date: pDate.get('select', 'yyyymmdd'),
+                time: $('#pTime').val(),
+                tel1: $('#pTel1').val(),
+                tel2: $('#pTel1').val(),
+                tel3: $('#pTel1').val(),
+                name: $('#pName').val(),
+                ferryCnt1: $('#pFerryCnt1').val(),
+                ferryCnt2: $('#pFerryCnt2').val(),
+                ferryCnt3: $('#pFerryCnt3').val(),
+                ferryCnt4: $('#pFerryCnt4').val(),
+                lunchCnt1: $('#pLunchCnt1').val(),
+                lunchCnt2: $('#pLunchCnt2').val()
+            };
+
+            if (!_data.date) {
+                alert('날짜를 입력하세요.');
+                return;
+            }
+            if (!_data.tel1 || !_data.tel2 || !_data.tel3) {
+                alert('전화번호를 입력하세요.');
+                return;
+            }
+            if (!_data.name) {
+                alert('예약자 성함을 입력하세요.');
+                return;
+            }
+            if((_data.ferryCnt1 + _data.ferryCnt2 + _data.ferryCnt3 + _data.ferryCnt4 + _data.lunchCnt1 + _data.lunchCnt2) <= 0) {
+                alert('여객선 탐승인원과 점심식사 인원 중 하나는 반드시 입력하셔야 합니다.');
+                return;
+            }
+
+            $( "#btnConfirm" ).prop( "disabled", true );
+
+            $.ajax({
+                url: '/reservation/new', type: "POST", data: _data, dataType: 'json'
+            }).done(function (result) {
+
+                alert(result.status);
+                if(result.status == 'EXISTED') {
+                    alert('이미 예약 정보가 존재합니다.');
+                    if (confirm('이미 예약 정보가 존재합니다.\n 수정하시겠습니까 ?')) {
+                        window.location.href = "/reservation/update";
+                    }else {
+                        // do nothing...
+                    }
+                }else{
+                    alert('정상 처리되었습니다.\n(전화 문의 1661-4428)');
+                    window.location.href = "/";
+                }
+
+            }).fail(function () {
+                $( "#btnConfirm" ).prop( "disabled", false );
+                alert('서버 장애가 발생하였습니다.\n(전화 문의 1661-4428)');
+            });
+
+
+        });
