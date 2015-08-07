@@ -89,227 +89,75 @@ block content
             .container
                 h2.section-title 이용 방법
                 .row
-                    .table-responsive
-                        table.table.table-striped
-                            tbody
-                                tr
-                                    td.text-center.lead
-                                        strong 1. 예약
-                                    td.text-left
-                                        p
-                                            a(href='#reservation')
-                                                button.btn.btn-primary 인터넷 및 모바일 예약
-                                            |  ( 전화문의 및 예약 : 1661-4428 )
-                                        p  ※ 전용유람선 정원에 맞게 선착순 접수 (평일 40명, 주말 50명 이상 예약시 출발)
-                                tr
-                                    td.text-center.lead
-                                        strong 2. 발권
-                                    td.text-left
-                                        p
-                                            | 결제는
-                                            strong 출발항 매표소
-                                            | 에서 합니다.
-                                            br
-                                            | 매표소 창구에
-                                            strong "옻칠패키지 코스 00명
-                                            | "이라고 말씀하시면 됩니다.
-                                        p  ※ 매표소 창구에 가이드가 출발 30분 전부터 대기하고 있습니다.
-                                tr
-                                    td.text-center.lead
-                                        strong 3. 이동
-                                    td.text-left
-                                        table.table.table-bordered
-                                            thead
-                                                tr
-                                                    th.text-center 통영 출발
-                                                    th.text-center 장사도
-                                                    th.text-center 통영 도착
-                                            tbody
-                                                tr
-                                                    td.text-center 09:30
-                                                    td.text-center 10:10~13:00
-                                                    td.text-center 13:40
-                                                tr
-                                                    td.text-center 14:30
-                                                    td.text-center 15:10~18:00
-                                                    td.text-center 18:40
-                                        p  ※ 기상/예약상황에 따라 출발 변동 상황이 발생될 수 있습니다.
-                                tr
-                                    td.text-center.lead
-                                        strong 4. 관람
-                                    td.text-left
-                                        p 장사도 도착후 옻칠회화관 관람(해설사 해설) 후 장사도 일대 자유관람입니다.
-                                        p.lead 장사도 체류시간 : 3시간
+                    table.table.table-striped
+                        tbody
+                            tr
+                                td.text-center.lead(style='white-space: nowrap')
+                                    strong 1. 예약
+                                td.text-left
+                                    p
+                                        a(href='#reservation')
+                                            button.btn.btn-primary 인터넷 및 모바일 예약
+                                        |  ( 전화문의 및 예약 : 1661-4428 )
+                                    p  ※ 전용유람선 정원에 맞게 선착순 접수 (평일 40명, 주말 50명 이상 예약시 출발)
+                            tr
+                                td.text-center.lead(style='white-space: nowrap')
+                                    strong 2. 발권
+                                td.text-left
+                                    p
+                                        | 결제는
+                                        strong 출발항 매표소
+                                        | 에서 합니다.
+                                        br
+                                        | 매표소 창구에
+                                        strong "옻칠패키지 코스 00명
+                                        | "이라고 말씀하시면 됩니다.
+                                    p  ※ 매표소 창구에 가이드가 출발 30분 전부터 대기하고 있습니다.
+                            tr
+                                td.text-center.lead(style='white-space: nowrap')
+                                    strong 3. 이동
+                                td.text-left
+                                    table.table.table-bordered
+                                        thead
+                                            tr.success
+                                                th.text-center
+                                                    strong 통영 출발
+                                                th.text-center
+                                                    strong 장사도
+                                                th.text-center
+                                                    strong 통영 도착
+                                        tbody
+                                            tr
+                                                td.text-center 09:30
+                                                td.text-center 10:10~13:00
+                                                td.text-center 13:40
+                                            tr
+                                                td.text-center 14:30
+                                                td.text-center 15:10~18:00
+                                                td.text-center 18:40
+                                    p  ※ 기상/예약상황에 따라 출발 변동 상황이 발생될 수 있습니다.
+                            tr
+                                td.text-center.lead(style='white-space: nowrap')
+                                    strong 4. 관람
+                                td.text-left
+                                    p 장사도 도착후 옻칠회화관 관람(해설사 해설) 후 장사도 일대 자유관람입니다.
+                                    p.lead 장사도 체류시간 : 3시간
     .section
-
-        hr
         .container
             .row
-                .col-md-6
+                .col-xs-6
                     h5.text-center
                         i.fa.fa-map-marker.text-muted
-                        |  통영 유람선 터미널
+                        |  통영 터미널
                     p.text-muted.text-center
                         | 경상남도 통영시
                         br
                         | 도남로 269-38
                         br
                         | (통영시 도남동 634번지)
-                .col-md-6
+                .col-xs-6
                     h5.text-center
                         i.fa.fa-phone.text-muted
-                        | 전화문의 및 예약
+                        | 전화 문의/예약
                     p.lead.text-center
                         | 1661-4428
-
-
-block javascript
-    script(type='text/javascript').
-
-        $("#formWrite").submit(function (e) {
-
-            $('.alert-success').hide();
-
-            var dataJSON = {};
-            var dataArray = $(this).serializeArray();
-            $.each(dataArray, function (i, v) {
-                dataJSON[v.name] = v.value;
-            });
-
-            var formURL = $(this).attr("action");
-
-            $.ajax({
-                url: formURL, type: "POST", data: dataJSON, dataType: 'json'
-            }).done(function (data) {
-                resetFormWrite();
-                $('body,html').animate({
-                    scrollTop: 0
-                }, 800);
-                $('.alert-success .alertMessage').html('<b>예약이 완료되었습니다. </b> 예약 내역을 조회/수정/삭제하실 수 있습니다. (전화 문의 1661-4428)');
-                $('.alert-success').show();
-
-            }).fail(function () {
-                alert("error");
-            });
-
-            e.preventDefault();
-        });
-
-        $("#btnWrite").click(function () {
-            $("#formWrite").submit();
-        });
-
-        $("#formCheck").submit(function (e) {
-
-            var dataJSON = {};
-            var dataArray = $(this).serializeArray();
-            $.each(dataArray, function (i, v) {
-                dataJSON[v.name] = v.value;
-            });
-
-            var formURL = $(this).attr("action");
-
-            console.log(dataJSON, formURL);
-
-            $.ajax({
-                url: formURL, type: "POST", data: dataJSON, dataType: 'json'
-            }).done(function (data) {
-
-                if (data) {
-
-                    $("#resnoModal").on('hidden.bs.modal', function (e) {
-                        $('#reservationModal').modal('show');
-                        $('#resnoModal').off('hidden.bs.modal');
-                    });
-
-                    $("#resnoModal").modal('hide');
-
-                    $.each(data, function (key, value) {
-                        var target = $("#formModify #" + key);
-                        if (target.is("select")) {
-                            $("#formModify #" + key + " option[selected]").removeAttr("selected");
-                            $("#formModify #" + key + " option[value=" + value + "]").attr('selected', 'selected');
-                        } else {
-                            target.val(value);
-                        }
-                        target.change();
-                    });
-
-
-                } else {
-                    $('.alert-warning').show();
-                    $("#formCheck #resno").focus();
-                }
-
-            }).fail(function () {
-                alert("error");
-            });
-
-            e.preventDefault();
-        });
-
-        $("#resnoModal").on('shown.bs.modal', function (e) {
-            $('.alert-success').hide();
-            $('.alert-warning').hide();
-            $("#formCheck #resno").val('');
-            $("#formCheck #resno").focus();
-        });
-
-        $("#reservationModal").on('shown.bs.modal', function (e) {
-            $('.alert-success').hide();
-            $("#formModify #resno").attr("readonly",true);
-        });
-
-        $("#resnoModal #btncheck").click(function () {
-            $("#formCheck").submit();
-        });
-
-
-        var submitResModal = function (action) {
-            var dataJSON = {};
-            var dataArray = $("#formModify").serializeArray();
-            $.each(dataArray, function (i, v) {
-                dataJSON[v.name] = v.value;
-            });
-
-            $.ajax({
-                url: "/reservation/"+action, type: "POST", data: dataJSON, dataType: 'json'
-            }).done(function (data) {
-
-                $('#reservationModal').modal('hide');
-
-                $('.alert-success .alertMessage').html('<b>정상 처리되었습니다. </b> (전화 문의 1661-4428)');
-                $('.alert-success').show();
-
-            }).fail(function () {
-                alert("error");
-            });
-
-        };
-
-        var resetFormWrite = function () {
-            $("#formWrite").get(0).reset();
-            $("#formWrite #time option[selected]").removeAttr("selected");
-            $("#formWrite #time option[selected]").change();
-            $("#formWrite #cnt1 option[selected]").removeAttr("selected");
-            $("#formWrite #cnt1 option[selected]").change();
-            $("#formWrite #cnt2 option[selected]").removeAttr("selected");
-            $("#formWrite #cnt2 option[selected]").change();
-            $("#formWrite #cnt3 option[selected]").removeAttr("selected");
-            $("#formWrite #cnt3 option[selected]").change();
-            $("#formWrite #cnt4 option[selected]").removeAttr("selected");
-            $("#formWrite #cnt4 option[selected]").change();
-        };
-
-
-        $("#reservationModal #btnModify").click(function () {
-            submitResModal("update");
-        });
-
-        $("#reservationModal #btnDelete").click(function () {
-            submitResModal("remove");
-        });
-
-
-
-
