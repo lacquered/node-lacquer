@@ -64,8 +64,6 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
@@ -88,36 +86,5 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
-
-
-/** ADMIN LOGIN **/
-var URI_LOGIN = '/admin/login';
-app.get(URI_LOGIN, function(req, res){
-  res.render('admin/login', { user: req.user, message: req.session.messages });
-});
-app.post(URI_LOGIN, function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err) }
-    if (!user) {
-      req.session.messages =  [info.message];
-      return res.redirect(URI_LOGIN)
-    }
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      return res.redirect('/admin/main');
-    });
-  })(req, res, next);
-});
-
-app.get('/admin/logout', function(req, res){
-  req.logout();
-  res.redirect(URI_LOGIN);
-});
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect(URI_LOGIN)
-};
 
 module.exports = app;
