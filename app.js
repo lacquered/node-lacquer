@@ -25,14 +25,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.use('/', require('./routes/index'));
 app.use('/reservation', require('./routes/reserve'));
 app.use('/admin', require('./routes/admin'));
 
-
 /** MONGODB Connection **/
-require('./lib/persister/mongoDatabase').config('', 'lacquer', function (err, message) {
+require('./lib/persister/mongoDatabase').config('10.0.0.4:27017', 'lacquer', function (err, message) {
     if (!err) {
       console.info('  - Mongodb is connected');
     }else{
