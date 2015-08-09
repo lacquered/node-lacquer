@@ -1,6 +1,6 @@
 var Account = require('./lib/admin/account');
 
-require('./lib/persister/mongoDatabase').config('', 'lacquer', function (err, message) {
+require('./lib/persister/mongoDatabase').config('10.0.0.4:27017', 'lacquer', function (err, message) {
     if (!err) {
 
       var _username = 'admin1@lacquer.com';

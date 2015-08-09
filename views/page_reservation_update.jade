@@ -37,11 +37,11 @@ block content
                                 h5.col-xs-3.text-center(for='time') 전화번호
                                 .col-xs-9
                                     .col-xs-4(style='padding-right: 4px; padding-left: 0px;')
-                                        input#pTel1.form-control.textBorder(type='text', pattern='\d*', maxlength='3', style='ime-mode:disabled;', value='#{pTel1}')
+                                        input#pTel1.form-control.textBorder(type='number', maxlength='3', value='#{pTel1}')
                                     .col-xs-4(style='padding-right: 2px; padding-left: 2px;')
-                                        input#pTel2.form-control.textBorder(type='number', pattern='[0-9]{10}', step='1', maxlength='4', value='#{pTel2}')
+                                        input#pTel2.form-control.textBorder(type='number', maxlength='4', value='#{pTel2}')
                                     .col-xs-4(style='padding-right: 0px; padding-left: 4px;')
-                                        input#pTel3.form-control.textBorder(type='number', maxlength='4', style='ime-mode:disabled;', value='#{pTel3}')
+                                        input#pTel3.form-control.textBorder(type='number', maxlength='4', value='#{pTel3}')
                             .form-group
                                 .text-center
                                     button#btnRetrieve.btn.btn-primary.btn-lg.btn-fill.btn-round(type='button')
