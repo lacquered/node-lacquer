@@ -3,28 +3,11 @@ var passport = require('passport');
 var mongoPersister = require('../lib/persister/mongoPersister');
 var router = express.Router();
 
-/*
- router.get('/register', function(req, res) {
- res.render('register', { });
- });
 
- router.post('/register', function(req, res, next) {
- Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
- if (err) {
- return res.render("register", {info: "Sorry. That username already exists. Try again."});
- }
-
- passport.authenticate('local')(req, res, function () {
- req.session.save(function (err) {
- if (err) {
- return next(err);
- }
- res.redirect('/');
- });
- });
- });
- });
- */
+var isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated()) return next();
+  res.redirect('/admin/login');
+}
 
 
 router.get('/', function (req, res) {
@@ -33,7 +16,11 @@ router.get('/', function (req, res) {
 
 
 router.get('/login', function (req, res) {
-  res.render('admin/login', {user: req.user});
+  if (req.isAuthenticated()) {
+    res.redirect('/admin/main');
+  }else{
+    res.render('admin/login', {user: req.user});
+  }
 });
 
 router.post('/login', passport.authenticate('local'), function (req, res, next) {
@@ -55,12 +42,6 @@ router.get('/logout', function (req, res, next) {
     res.redirect('/admin/login');
   });
 });
-
-
-var isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated()) return next();
-  res.redirect('/admin/login');
-}
 
 router.get('/main', isAuthenticated, function (req, res) {
   res.render('admin/main', {});
