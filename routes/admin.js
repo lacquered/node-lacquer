@@ -26,6 +26,12 @@ var router = express.Router();
  });
  */
 
+
+router.get('/', function (req, res) {
+  res.redirect('/admin/login');
+});
+
+
 router.get('/login', function (req, res) {
   res.render('admin/login', {user: req.user});
 });
