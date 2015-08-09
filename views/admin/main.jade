@@ -1,0 +1,284 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title LAQUER Admin | 예약내역 조회
+        meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
+
+        link(href='../admin/libs/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+        link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+        link(href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css', rel='stylesheet', type='text/css')
+        link(href='../admin/libs/daterangepicker/daterangepicker-bs3.css', rel='stylesheet', type='text/css')
+        link(href='../admin/libs/select2/select2.min.css', rel='stylesheet', type='text/css')
+        link(href='../admin/css/AdminLTE.min.css', rel='stylesheet', type='text/css')
+        //
+          AdminLTE Skins. Choose a skin from the css/skins
+          folder instead of downloading all of them to reduce the load.
+        link(href='../admin/css/skins/_all-skins.min.css', rel='stylesheet', type='text/css')
+        style.
+            .table > thead > tr > th {
+                vertical-align: middle;
+            }
+            .th-small {
+                font-size: 70%;
+            }
+            .select2 {
+                width: 100% !important;
+            }
+        //if lt IE 9
+          script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+          script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+    // ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR.
+    body.skin-blue.layout-top-nav
+        .wrapper
+            header.main-header
+                nav.navbar.navbar-static-top
+                    .container
+                        .navbar-header
+                            a.navbar-brand(href='/admin/main')
+                                b LAQUER
+                                |  ADMIN
+                    // /.container-fluid
+            // Full Width Column
+            .content-wrapper
+                .container
+                    // Content Header (Page header)
+                    section.content-header
+                        h1
+                            | 예약 현황 조회
+                            small  여객선 및 점심식사 예약 현황
+                    // Main content
+                    section.content
+                        .row
+                            .col-xs-12
+                                .box
+                                    .box-header
+                                        .col-xs-10
+                                            // LEFT
+                                            .row
+                                                .col-xs-4
+                                                    .form-group
+                                                        label 예약 구분
+                                                        br
+                                                        select#qStatus.form-control.select2
+                                                            option(value='', selected='selected') - 전체 -
+                                                            option(value='R') 예약 대기
+                                                            option(value='C') 예약 완료
+                                                            option(value='L') 중식 예약
+                                                .col-xs-4
+                                                    .form-group
+                                                        label 출발항
+                                                        br
+                                                        select#qSource.form-control.select2
+                                                            option(value='', selected='selected') - 전체 -
+                                                            option(value='통영') 통영
+                                                            option(value='가배') 가배
+                                                            option(value='저구') 저구
+                                                            option(value='대포') 대포
+                                                .col-xs-4
+                                                    .form-group
+                                                        label 예약자
+                                                        br
+                                                        input#qName.form-control(type='text', placeholder='Enter ...')
+                                            .row
+                                                .col-xs-4
+                                                    .form-group
+                                                        label 접수일
+                                                        br
+                                                        .input-group
+                                                            .input-group-addon
+                                                                i.fa.fa-calendar
+                                                            input#qCreated.form-control(type='text', data-inputmask="'alias': 'yyyy-mm-dd'", data-mask='')
+                                                        // /.input group
+                                                .col-xs-4
+                                                    .form-group
+                                                        label 출발일
+                                                        br
+                                                        .input-group
+                                                            .input-group-addon
+                                                                i.fa.fa-calendar
+                                                            input#qDate.form-control(type='text', data-inputmask="'alias': 'yyyy-mm-dd'", data-mask='')
+                                                        // /.input group
+                                                .col-xs-4
+                                                    .form-group
+                                                        label 출발 시간
+                                                        br
+                                                        select#qTime.form-control.select2
+                                                            option(value='', selected='selected') - 전체-
+                                                            option(value='09:30') 09:30
+                                                            option(value='15:30') 15:30
+                                        .col-xs-2(style='top: 25px;')
+                                            button#btnSearch.btn.btn-primary.btn-lg.btn-flat.btn-block(style='height: 77px;') 검 색
+                                            .text-center
+                                                button#btnDownload.btn.btn-success.btn-sm.btn-block.btn-flat
+                                                    i.fa.fa-print
+                                                    | &nbsp; 엑셀 다운로드
+                                    // /.box-body
+                                    .box-body.table-responsive.no-padding
+                                        table#resultTable.table.table-hover.table-bordered
+                                            thead
+                                                tr
+                                                    th.text-center.critical(rowspan='2') 상태
+                                                    th.text-center(rowspan='2') 요금
+                                                    th.text-center(rowspan='2') 출발일
+                                                    th.text-center(rowspan='2') 출발항
+                                                    th.text-center(rowspan='2') 예약자
+                                                    th.text-center(rowspan='2') 연락처
+                                                    th.text-center(colspan='4') 유람선
+                                                    th.text-center(colspan='2') 중식
+                                                    th.text-center(rowspan='2') 접수일
+                                                tr
+                                                    th.text-center.th-small 성인
+                                                    th.text-center.th-small 청소년
+                                                    th.text-center.th-small 소인
+                                                    th.text-center.th-small 유아
+                                                    th.text-center.th-small 1번
+                                                    th.text-center.th-small 2번
+                                            tbody
+                                                tr.text-center
+                                                    td(colspan=13) 검색 결과가 없습니다.
+                                        br
+                                        br
+
+            footer.main-footer
+                .container
+                    .pull-right.hidden-xs
+                        b Version
+                        |  0.8.0
+                    strong
+                        | Copyright © 2014-2015
+                        b &nbsp; &nbsp; LAQUER
+                    | &nbsp; software
+                    | .
+                    |  All
+                    |             rights reserved.
+
+            a#dlink(style='display:none;')
+
+        // jQuery 2.1.4
+        script(src='../admin/libs/jQuery/jQuery-2.1.4.min.js', type='text/javascript')
+        // Bootstrap 3.3.2 JS
+        script(src='../admin/libs/bootstrap/js/bootstrap.min.js', type='text/javascript')
+        // SlimScroll
+        script(src='../admin/libs/slimScroll/jquery.slimscroll.min.js', type='text/javascript')
+        // FastClick
+        script(src='../admin/libs/fastclick/fastclick.min.js', type='text/javascript')
+        // Select2
+        script(src='../admin/libs/select2/select2.full.min.js', type='text/javascript')
+        // AdminLTE App
+        script(src='../admin/js/app.min.js', type='text/javascript')
+        // AdminLTE for demo purposes
+        script(src='../admin/js/demo.js', type='text/javascript')
+        // InputMask
+        script(src='../admin/libs/input-mask/jquery.inputmask.js', type='text/javascript')
+        script(src='../admin/libs/input-mask/jquery.inputmask.date.extensions.js', type='text/javascript')
+        script(src='../admin/libs/input-mask/jquery.inputmask.extensions.js', type='text/javascript')
+        // date-range-picker
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js', type='text/javascript')
+        script(src='../admin/libs/daterangepicker/daterangepicker.js', type='text/javascript')
+        script(type='text/javascript').
+
+            var tableToExcel = (function () {
+                var uri = 'data:application/vnd.ms-excel;base64,'
+                    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+                    , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+                    , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+                return function (table, name, filename) {
+                    if (!table.nodeType) table = document.getElementById(table)
+                    var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+
+                    document.getElementById("dlink").href = uri + base64(format(template, ctx));
+                    document.getElementById("dlink").download = filename;
+                    document.getElementById("dlink").click();
+
+                }
+            })();
+
+            $(function () {
+                $(".select2").select2();
+                $("[data-mask]").inputmask();
+
+                $('#btnDownload').prop( "disabled", true );
+
+                var statusName = function(_arg){
+                    if(_arg == 'R') return '예약대기';
+                    if(_arg == 'C') return '예약완료';
+                    return '';
+                };
+
+                var totalFee = function(_arg){
+
+                    // 대인 29500
+                    // 청소년 28000
+                    // 소인 18000
+
+                    var m = ( Number(_arg.ferryCnt1) * 29500 ) +
+                            ( Number(_arg.ferryCnt2) * 28000 ) +
+                            ( Number(_arg.ferryCnt3) * 18000 );
+
+                    return m.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                };
+
+                var dateStr = function(_arg){
+                    if(_arg) return _arg.substr(0, 4) + '-' + _arg.substr(4, 2) + '-' + _arg.substr(6, 2);
+                    return '';
+                }
+
+                $('#btnSearch').click(function () {
+
+                    var _data = {};
+                    if ($('#qStatus').val())    _data['status'] = $('#qStatus').val();
+                    if ($('#qSource').val())    _data['source'] = $('#qSource').val();
+                    if ($('#qName').val())      _data['name'] = $('#qName').val();
+                    if ($('#qCreated').val())   _data['created'] = $('#qCreated').val().replace("-","").replace("-","");
+                    if ($('#qDate').val())      _data['date'] = $('#qDate').val().replace("-","").replace("-","");
+                    if ($('#qTime').val())      _data['time'] = $('#qTime').val();
+
+                    $.ajax({
+                        url: '/admin/search', type: "POST", data: _data, dataType: 'json'
+                    }).done(function (datas) {
+
+                        console.log(datas.result);
+
+                        if(datas.result && datas.result.length > 0) {
+
+                            var _rows = '';
+                            $.each(datas.result, function (i, obj) {
+
+                                var _row = '<tr class="text-center">'+
+                                        '<td><span class="label label-success">' + statusName(obj.status) + '</span></td>'+
+                                        '<td class="text-right">' + totalFee(obj) + '</td>' +
+                                        '<td>' + dateStr(obj.date) + ' ' + obj.time + '</td>' +
+                                        '<td>' + obj.source + '</td>' +
+                                        '<td>' + obj.name + '</td>' +
+                                        '<td>' + obj.tel1 + '-' + obj.tel2 + '-' + obj.tel3 + '</td>' +
+                                        '<td>' + obj.ferryCnt1 + '</td><td>' + obj.ferryCnt2 + '</td><td>' + obj.ferryCnt3 + '</td><td>' + obj.ferryCnt4 + '</td>' +
+                                        '<td>' + obj.lunchCnt1 + '</td><td>' + obj.lunchCnt2 + '</td>' +
+                                        '<td>' + dateStr(obj.created) + '</td></tr>';
+
+                                _rows = _rows + _row;
+
+                            });
+
+                            $('#resultTable > tbody').html(_rows);
+                            $('#btnDownload').prop( "disabled", false );
+
+                        }else{
+                            $('#resultTable > tbody').html('<tr class="text-center"><td colspan="13">검색 결과가 없습니다.</td></tr>');
+                            $('#btnDownload').prop( "disabled", true );
+                        }
+
+
+                    }).fail(function () {
+                        alert('서버 장애가 발생하였습니다.\n(전화 문의 1661-4428)');
+                    });
+
+                });
+
+
+                $('#btnDownload').click(function () {
+                    tableToExcel('resultTable', 'Reservation', 'reservation.xls')
+
+                });
+
+            });
