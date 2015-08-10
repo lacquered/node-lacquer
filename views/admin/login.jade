@@ -19,10 +19,10 @@ html
                 p.login-box-msg Sign in to start your session
                 form(role='form', action='/admin/login', method='post')
                     .form-group.has-feedback
-                        input#adminEmail.form-control(type='email', placeholder='Email', name="username")
+                        input#adminEmail.form-control(type='text', placeholder='아이디', name="username")
                         span.glyphicon.glyphicon-envelope.form-control-feedback
                     .form-group.has-feedback
-                        input#adminPassword.form-control(type='password', placeholder='Password', name="password")
+                        input#adminPassword.form-control(type='password', placeholder='암호', name="password")
                         span.glyphicon.glyphicon-lock.form-control-feedback
                     .row
                         .col-xs-8
