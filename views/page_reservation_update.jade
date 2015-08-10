@@ -193,17 +193,27 @@ block content
                     $('#infoTel').text(data.result.tel1+' - '+data.result.tel2+' - '+data.result.tel3);
 
                     $('#pName').val(data.result.name);
+                    $('#pFerryCnt1').val(data.result.ferryCnt1);
                     $('#pFerryCnt1').find('option[value="' + data.result.ferryCnt1 + '"]').attr("selected", "true");
                     $('#pFerryCnt1').mobileSelect('refresh');
+
+                    $('#pFerryCnt2').val(data.result.ferryCnt2);
                     $('#pFerryCnt2').find('option[value="' + data.result.ferryCnt2 + '"]').attr("selected", "true");
                     $('#pFerryCnt2').mobileSelect('refresh');
+
+                    $('#pFerryCnt3').val(data.result.ferryCnt3);
                     $('#pFerryCnt3').find('option[value="' + data.result.ferryCnt3 + '"]').attr("selected", "true");
                     $('#pFerryCnt3').mobileSelect('refresh');
+
+                    $('#pFerryCnt4').val(data.result.ferryCnt4);
                     $('#pFerryCnt4').find('option[value="' + data.result.ferryCnt4 + '"]').attr("selected", "true");
                     $('#pFerryCnt4').mobileSelect('refresh');
 
+                    $('#pLunchCnt1').val(data.result.lunchCnt1);
                     $('#pLunchCnt1').find('option[value="' + data.result.lunchCnt1 + '"]').attr("selected", "true");
                     $('#pLunchCnt1').mobileSelect('refresh');
+
+                    $('#pLunchCnt2').val(data.result.lunchCnt2);
                     $('#pLunchCnt2').find('option[value="' + data.result.lunchCnt2 + '"]').attr("selected", "true");
                     $('#pLunchCnt2').mobileSelect('refresh');
 

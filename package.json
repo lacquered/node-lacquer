@@ -16,6 +16,7 @@
     "jade": "~1.9.2",
     "mongoose": "^4.0.7",
     "morgan": "~1.5.3",
+    "optimist": "^0.6.1",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^1.0.1",

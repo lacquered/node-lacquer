@@ -7,13 +7,25 @@
 var app = require('../app');
 var debug = require('debug')('node-lacquer:server');
 var http = require('http');
+var argv = require('optimist').argv;
 
-/**
- * Get port from environment and store in Express.
- */
+var port = normalizePort(argv.port || 80);
+var mongodb = argv.mongodb || '127.0.0.1:27017';
 
-var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+
+
+console.log(mongodb);
+/** MONGODB Connection **/
+require('../lib/persister/mongoDatabase').config(mongodb, 'lacquer', function (err, message) {
+    if (!err) {
+      console.info('  - Mongodb is connected');
+    }else{
+      console.error(err, message)
+    }
+  }
+);
+
 
 /**
  * Create HTTP server.

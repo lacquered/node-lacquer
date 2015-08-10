@@ -29,23 +29,11 @@ app.use('/', require('./routes/index'));
 app.use('/reservation', require('./routes/reserve'));
 app.use('/admin', require('./routes/admin'));
 
-/** MONGODB Connection **/
-require('./lib/persister/mongoDatabase').config('10.0.0.4:27017', 'lacquer', function (err, message) {
-    if (!err) {
-      console.info('  - Mongodb is connected');
-    }else{
-      console.error(err, message)
-    }
-
-  }
-);
-
 // passport config
 var Account = require('./lib/admin/account');
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
-
 
 
 // view engine setup
