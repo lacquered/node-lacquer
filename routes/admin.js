@@ -50,8 +50,6 @@ router.get('/main', isAuthenticated, function (req, res) {
 
 router.post('/search', isAuthenticated, function (req, res) {
 
-  console.log(req.body);
-
   mongoPersister.retrieveReservationList(req.body, function (err, result) {
 
     console.log(err, result);
@@ -63,6 +61,10 @@ router.post('/search', isAuthenticated, function (req, res) {
 
   });
 
+});
+
+router.post('/status/update', isAuthenticated, function (req, res) {
+  mongoPersister.updateStatus
 });
 
 module.exports = router;
