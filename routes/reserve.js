@@ -4,7 +4,7 @@ var mongoPersister = require('../lib/persister/mongoPersister');
 
 
 var listSource = ["통영", "가배", "저구", "대포"];
-var listTime = ["09:30", "15:30"];
+var listTime = ["10:00", "13:00"];
 
 
 // 예약 등록 FORM
