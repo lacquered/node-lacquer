@@ -4,10 +4,11 @@ html
         meta(charset='utf-8')
         link(rel='icon', type='image/png', href='resource/assets/img/favicon.ico')
         meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
-        title 장사도 한국옻칠회화관
+        title 장사도 패키지
 
         meta(content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0', name='viewport')
         meta(name='viewport', content='width=device-width')
+        meta(name="format-detection", content="telephone=no")
 
         link(href='/libs/bootstrap/css/bootstrap.css', rel='stylesheet')
         link(href='/assets/css/gsdk.css', rel='stylesheet')
@@ -27,7 +28,7 @@ html
                         span.icon-bar.bar1
                         span.icon-bar.bar2
                         span.icon-bar.bar3
-                    a.navbar-brand(href='/') 장사도 한국옻칠회화관
+                    a.navbar-brand(href='/') 장사도 패키지 투어
                 .collapse.navbar-collapse
                     ul.nav.navbar-nav.navbar-right
                         li
@@ -64,6 +65,7 @@ html
         script(src='/assets/js/chartist.min.js')
         script(src='/assets/js/jquery.tagsinput.js')
         script(src='/assets/js/get-shit-done.js')
+
         script(type='text/javascript').
             var big_image;
             $().ready(function () {
@@ -75,6 +77,14 @@ html
                         parallax();
                     });
                 }
+
+                if (/Mobile|iPhone|Android|BlackBerry|IEMobile/i.test(navigator.userAgent)) {
+                    $('.ferryTel').each(function (index) {
+                        var t = $(this).text();
+                        $(this).html('<a href="' + t + '"><button class="btn btn-primary btn-sm">' + t + '</button></a>');
+                    });
+                }
+
             });
             var parallax = function () {
                 var current_scroll = $(this).scrollTop();
@@ -84,4 +94,5 @@ html
 
             $(document).on("click", ".navbar-nav li a", function () {
                 $("#bodyClick").click();
+
             });
