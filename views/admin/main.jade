@@ -127,6 +127,7 @@ html
                                                     th.text-center(colspan='4') 유람선
                                                     th.text-center(colspan='2') 중식
                                                     th.text-center(rowspan='2') 접수일
+                                                    th.text-center(rowspan='2') 메모
                                                 tr
                                                     th.text-center.th-small 성인
                                                     th.text-center.th-small 청소년
@@ -136,7 +137,7 @@ html
                                                     th.text-center.th-small 2번
                                             tbody
                                                 tr.text-center
-                                                    td(colspan=13) 검색 결과가 없습니다.
+                                                    td(colspan=14) 검색 결과가 없습니다.
                                         br
                                         br
 
@@ -222,7 +223,7 @@ html
                 var dateStr = function(_arg){
                     if(_arg) return _arg.substr(0, 4) + '-' + _arg.substr(4, 2) + '-' + _arg.substr(6, 2);
                     return '';
-                }
+                };
 
                 $('#btnSearch').click(function () {
 
@@ -254,7 +255,8 @@ html
                                         '<td>' + obj.tel1 + '-' + obj.tel2 + '-' + obj.tel3 + '</td>' +
                                         '<td>' + obj.ferryCnt1 + '</td><td>' + obj.ferryCnt2 + '</td><td>' + obj.ferryCnt3 + '</td><td>' + obj.ferryCnt4 + '</td>' +
                                         '<td>' + obj.lunchCnt1 + '</td><td>' + obj.lunchCnt2 + '</td>' +
-                                        '<td>' + dateStr(obj.created) + '</td></tr>';
+                                        '<td>' + dateStr(obj.created) + '</td>' +
+                                        '<td>' + obj.memo + '</td></tr>';
 
                                 _rows = _rows + _row;
 
