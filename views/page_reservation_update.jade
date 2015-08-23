@@ -159,6 +159,9 @@ block content
         };
         $('.mobileSelect').mobileSelect();
 
+        $('.mobileSelect-control').bind("click", function () {
+            $('.mobileSelect-savebtn').click()
+        });
 
         $('#btnRetrieve').click(function () {
 
@@ -185,6 +188,7 @@ block content
             $.ajax({
                 url: '/reservation/retrieve', type: "POST", data: _data, dataType: 'json'
             }).done(function (data) {
+
 
                 if (data.status == 'NOTEXISTED') {
                     alert('해당하는 예약 정보가 없습니다.');

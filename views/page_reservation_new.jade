@@ -125,6 +125,10 @@ block content
 
         $('.mobileSelect').mobileSelect();
 
+        $('.mobileSelect-control').bind("click", function () {
+            $('.mobileSelect-savebtn').click()
+        });
+
         // 버튼 액션
         $('#btnConfirm').click(function () {
 
